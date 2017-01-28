@@ -1,0 +1,8 @@
+.footer {
+    overflow: hidden;
+    background: $b-c-highlight;
+    bottom: 0;
+    position: absolute;
+    height: 35px;
+    width: 100%;
+}

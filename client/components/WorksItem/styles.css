@@ -1,0 +1,53 @@
+.content {
+    display: flex;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.content-middle {
+    width: 5%;
+    text-align: center;
+    position: relative;
+}
+
+.content-left {
+    width: 25%;
+}
+
+.content-right {
+    width: 70%;
+    padding-left: 5px;
+}
+
+.circle {
+    margin: 3.9px auto;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    background-color: $grassGreen;
+}
+
+.diverder {
+    position: absolute;
+    top: 17px;
+    bottom: 0;
+    left: 50%;
+    width: 5px;
+    margin-left: -2.5px;
+    margin-bottom: -15px;
+    background-color: $grassGreen;
+}
+
+.desc {
+    color: #959596;
+}
+
+.duration {
+    font-weight: 700;
+    font-size: 14px;
+    em {
+        margin: 0 2px;
+        color: $b-c-highlight;
+    }
+}

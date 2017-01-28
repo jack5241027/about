@@ -1,0 +1,15 @@
+.title {
+    font-size: 24px;
+}
+
+.container {
+    padding: 15px 0 10px;
+}
+
+.contentwrap {
+    margin-top: 10px;
+}
+
+.container + .container {
+    border-top: 1px dashed #CECECF;
+}

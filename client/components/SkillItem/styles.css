@@ -1,0 +1,10 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.4;
+    font-style: oblique;
+}
+
+.item + p {
+    margin-top: 10px;
+}
