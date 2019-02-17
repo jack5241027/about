@@ -12,7 +12,7 @@ export default [
         subItems: [
           'Design a low coupling redux store to manage all data, make hole application could easily recompose and reuse.',
           'Use React context api to build some sub functionality, to separate minor data from store.',
-          'Use Rx.js to settle up a fetching data mechanism, which easily dispatch different actions from different response and retry after some logic.',
+          'Use Rx.js to set up a fetching data mechanism, which easily dispatch different actions from different response and retry after some logic.',
         ],
       },
       {
@@ -20,7 +20,7 @@ export default [
         subItems: [
           'Integrate Graphql with backend to manage Group and User permission.',
           'Build common Graphql initial function to improve code reusability.',
-          'Use D3 and SVG to draw a hierarchy graphs.',
+          'Use D3 and SVG to draw a hierarchy graph.',
         ],
       },
       {
@@ -34,7 +34,7 @@ export default [
           'Integrate RTMP and PubNub to create stream management system.',
           'Several cron jobs, e.g., daily report and users income.',
           'Slack-bot integration to offer several commands in slack channel for common operations.',
-          'Integrate with PayPal Email verification flow.',
+          'Integrate user account with PayPal Email verification flow.',
         ],
       },
       {
@@ -45,7 +45,7 @@ export default [
         ],
       },
       {
-        title: 'Build event pages and prepare backend data also.',
+        title: 'Build event pages and prepare backend data.',
         subItems: [
           'Make several apis and admin interface let operator monitor event status in a on site event.',
         ],
