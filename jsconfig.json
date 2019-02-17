@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "client/*"
+      ],
+      "~/*": [
+        "share/*"
+      ],
+    },
+    "lib": [
+      "dom", "esnext"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

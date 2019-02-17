@@ -1,119 +1,94 @@
-const webpack = require('webpack')
-const postcssNested = require('postcss-nested')
-const autoprefixer = require('autoprefixer')
-const path = require('path')
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const path = require('path');
+const { isDev } = require('./share/constant');
 
 module.exports = {
-    // devtool: "inline-source-map"
-    devtool: 'eval',
-    entry: {
-        app: [
-            path.join(__dirname, 'client', 'index'),
-            'webpack-dev-server/client?http://localhost:3000',
-            'webpack/hot/only-dev-server',
-            'react-hot-loader/patch'
+  entry: {
+    app: './client/index.js',
+  },
+  output: {
+    publicPath: '/',
+    path: path.join(__dirname, 'public'),
+    filename: '[name].[hash].js',
+  },
+  resolve: {
+    extensions: ['.js', '.scss'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/],
+        use: 'babel-loader?cacheDirectory',
+      },
+      {
+        test: /\.(png|svg|jpe?g)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: '100000',
+            },
+          },
         ],
-        vendors: [
-            'react',
-            'redux'
-        ]
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name]-bundle.js',
-        publicPath: '/static/'
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js[x]?$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                include: __dirname,
-                query: {
-                    presets: [
-                        'es2015-loose',
-                        'stage-0',
-                        'react',
-                        'react-optimize'
-                    ],
-                    plugins: [
-                        'react-hot-loader/babel',
-                        'transform-decorators-legacy',
-                        'transform-react-constant-elements',
-                        'transform-runtime',
-                        'add-module-exports'
-                    ]
-                }
+      },
+      {
+        test: /\.pug$/,
+        use: 'pug-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          isDev ? 'style-loader?insertAt=top' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[name]-[local]_[hash:base64:5]',
             },
-            {
-                test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&minetype=application/font-woff'
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
             },
-
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=image/svg+xml'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|woff)$/,
-                loader: 'url-loader?limit=8192?name=[name].[ext]'
-            },
-            {
-                test: /font-awesome\.css$/,
-                loaders: [
-                    'style?sourceMap',
-                    'css?importLoaders=1',
-                    'postcss'
-                ]
-            },
-            {
-                test: /^((?!font-awesome).)*\.[s]?css$/,
-                loaders: [
-                    'style?sourceMap',
-                    'css?modules&camelCase=dashes&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-                    'postcss'
-                ]
-            }
-        ]
-    },
-    postcss: [
-        postcssNested,
-        require('postcss-nested'),
-        require('postcss-import'),
-        require('postcss-simple-vars')({
-            variables: function() {
-                var color = require('./client/stylesconfig/color.js')
-                var baseVar = require('./client/stylesconfig/variables.js')
-                return {...color, ...baseVar}
-            }
-        }),
-        require('postcss-font-magician'),
-        autoprefixer({ browsers: ['last 2 versions'] })
+          },
+        ],
+      },
     ],
-    resolve: {
-        root: path.resolve(__dirname),
-        alias: {},
-        extensions: ['', '.js', '.jsx', '.css', '.scss'],
-        modulesDirectories: ['node_modules']
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new webpack.ProvidePlugin({
-            React: 'react',
-            ReactDOM: 'react-dom'
-        }),
-        new webpack.ProvidePlugin({
-            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-        }),
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors-bundle.js', Infinity),
-        new webpack.DefinePlugin({
-            'GLOBAL.__CLIENT__': true
-        })
-    ]
-}
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:8].css',
+      chunkFilename: '[id].[contenthash:8].css',
+    }),
+
+    new HTMLWebpackPlugin({
+      chunks: ['app'],
+      filename: 'index.html',
+      template: path.resolve('./views/index.pug'),
+    }),
+
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve('./public/vendor.dll.*.js'),
+      includeSourcemap: false,
+    }),
+
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('./public/dll.json'), // eslint-disable-line global-require, import/no-unresolved
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+      'GLOBAL.__CLIENT__': true,
+    }),
+  ],
+};

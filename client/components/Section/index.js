@@ -1,23 +1,39 @@
-import styles from './styles.css'
-import React, {PropTypes} from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import color from '@/share/style';
 
-class Section extends React.Component {
+const SectionWrap = styled.section`
+  overflow: hidden;
+  & + & {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed ${color.border};
+  }
+`;
 
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        children: PropTypes.object.isRequired
-    };
+const Title = styled.h2`
+  margin-bottom: 8px;
+`;
 
-    render() {
-        let {title, children} = this.props
-        return (
-            <section className={styles.container}>
-                <h2 className={styles.title}>{title}</h2>
-                <div className={styles.contentwrap}>
-                    {children}
-                </div>
-            </section>
-        )
-    }
-}
-export default Section
+const Content = styled.div`
+  display: inline-block;
+  padding: 0 8px;
+  width: 100%;
+  line-height: 1.2;
+  color: ${color.desc};
+`;
+
+const Section = ({ title, children, ...rest }) => (
+  <SectionWrap {...rest}>
+    <Title>{title}</Title>
+    <Content>{children}</Content>
+  </SectionWrap>
+);
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.objectOf({}).isRequired,
+};
+
+export default Section;

@@ -1,17 +1,14 @@
-import styles from './styles.css'
-import React from 'react'
+import styled from 'styled-components';
+import color from '@/share/style';
 
-class Footer extends React.Component {
-    static propTypes = {
-        children: React.PropTypes.object
-    };
-    render() {
-        let {children} = this.props
-        return (
-            <footer className={styles.footer}>
-                {children}
-            </footer>
-        )
-    }
-}
-export default Footer
+const Footer = styled.footer`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  overflow: hidden;
+  background: ${color.footer};
+`;
+
+export default Footer;

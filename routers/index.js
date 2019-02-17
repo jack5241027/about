@@ -1,9 +1,18 @@
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import Index from '../client/containers/pages/index/index'
+import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
+import history from '~/history';
+import About from '@/pages/About';
+import App from '@/App';
 
-export default (
-    <Route path='*'>
-        <IndexRoute component={Index} />
-    </Route>
-)
+const route = () => (
+  <Router history={history}>
+    <App>
+      <Switch>
+        <Route path="/about" component={About} />
+      </Switch>
+    </App>
+  </Router>
+);
+
+export default hot(route);
