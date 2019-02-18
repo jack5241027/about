@@ -19,17 +19,17 @@ const DurationWrap = styled.div`
   }
 `;
 
-const WorksItem = ({ from, to }) => (
+const Duration = ({ from, to }) => (
   <DurationWrap>
-    <span>{from}</span>
-    <span>|</span>
     <span>{to}</span>
+    <span>|</span>
+    <span>{from}</span>
   </DurationWrap>
 );
 
-WorksItem.propTypes = {
+Duration.propTypes = {
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 };
 
-export default WorksItem;
+export default Duration;

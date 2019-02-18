@@ -15,13 +15,13 @@ const WorksItemWrap = styled.div`
   }
 `;
 
-const DiverderWrap = styled.div`
+const DividerWrap = styled.div`
   position: relative;
   width: 5%;
   margin: 0 8px;
 `;
 
-const Diverder = styled.div`
+const Divider = styled.div`
   position: absolute;
   top: 17px;
   bottom: 0;
@@ -98,17 +98,17 @@ const Title = styled.h3`
 const WorksItem = ({ duration, title, desc, items }) => (
   <WorksItemWrap>
     <Duration {...duration} />
-    <DiverderWrap>
-      <Diverder />
-    </DiverderWrap>
+    <DividerWrap>
+      <Divider />
+    </DividerWrap>
     <ContentWrap>
       <Title>{title}</Title>
-      <Desc dangerouslySetInnerHTML={{ __html: desc }} />
-      {items.map(({ title: itemTitle, subItems = [] }) => (
-        <SubItemWrap>
+      <Desc>{desc}</Desc>
+      {items.map(({ title: itemTitle, subItems = [] }, idx) => (
+        <SubItemWrap key={idx}>
           <Item dangerouslySetInnerHTML={{ __html: itemTitle }} />
-          {subItems.map(sub => (
-            <SubItem>{sub}</SubItem>
+          {subItems.map((sub, key) => (
+            <SubItem key={key}>{sub}</SubItem>
           ))}
         </SubItemWrap>
       ))}
@@ -117,9 +117,10 @@ const WorksItem = ({ duration, title, desc, items }) => (
 );
 
 WorksItem.propTypes = {
-  duration: PropTypes.string.isRequired,
+  duration: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default WorksItem;

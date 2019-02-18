@@ -11,22 +11,32 @@ const EducationItemWrap = styled.div`
   line-height: 1.2;
 `;
 
-const Desc = styled.div`
+const DescWrap = styled.div`
   width: 85%;
   padding-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const Text = styled.div`
   ${fontSet.item};
 `;
 
-const EducationItem = ({ duration, desc }) => (
+const EducationItem = ({ duration, desc: { title, subTitle, content } }) => (
   <EducationItemWrap>
     <Duration {...duration} />
-    <Desc dangerouslySetInnerHTML={{ __html: desc }} />
+    <DescWrap>
+      <Text>{title}</Text>
+      <Text>{subTitle}</Text>
+      <Text>{content}</Text>
+    </DescWrap>
   </EducationItemWrap>
 );
 
 EducationItem.propTypes = {
-  duration: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
+  duration: PropTypes.shape({}),
+  desc: PropTypes.shape({}),
 };
 
 export default EducationItem;

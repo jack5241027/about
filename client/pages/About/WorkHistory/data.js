@@ -90,7 +90,7 @@ export default [
       from: '2015/04',
       to: '2016/07',
     },
-    title: '春樹科技',
+    title: 'Spring Trees Technologies',
     desc:
       'Company mainly provides integrated digital marketing service to clients. Develop multiple campaign site and digital advertisement delivery.',
     items: [

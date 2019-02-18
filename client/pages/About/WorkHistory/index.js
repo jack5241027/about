@@ -15,8 +15,8 @@ const Section = styled(RawSection)`
 
 const WorkHistory = () => (
   <Section title="WORK EXPERIENCE">
-    {workHistory.map(props => (
-      <WorksItem {...props} />
+    {workHistory.map((props, idx) => (
+      <WorksItem key={idx} {...props} />
     ))}
   </Section>
 );
