@@ -79,10 +79,6 @@ export default [
           'Refactor legacy code. Transfer Jade into Jsx to improve the efficiency of development.',
         ],
       },
-      {
-        title:
-          'Survey the supportiveness of CSS3 in multiple E-mail system and different device. Build pattern of tuning style to shorten EDM time cost of making EDM.',
-      },
     ],
   },
   {

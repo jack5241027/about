@@ -8,7 +8,6 @@ const SkillItemWrap = styled.div`
   display: flex;
   justify-content: space-between;
   line-height: 1.4;
-  font-style: oblique;
   & + p {
     margin-top: 10px;
   }

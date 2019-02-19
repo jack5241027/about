@@ -1,6 +1,13 @@
 import React from 'react';
-import Section from '@/components/Section';
+import styled from 'styled-components';
+import RawSection from '@/components/Section';
 import SkillItem from '@/components/SkillItem/';
+
+const Section = styled(RawSection)`
+  @media print {
+    margin-bottom: 100px;
+  }
+`;
 
 const Skills = () => (
   <Section title="KEY SKILLS">

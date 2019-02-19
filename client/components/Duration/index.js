@@ -17,6 +17,10 @@ const DurationWrap = styled.div`
   span:nth-child(2) {
     color: ${color.green};
   }
+
+  @media print {
+    display: none;
+  }
 `;
 
 const Duration = ({ from, to }) => (

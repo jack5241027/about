@@ -12,6 +12,12 @@ const WorksItemWrap = styled.div`
 
   &:last-child {
     margin-bottom: 16px;
+
+    @media print {
+      border-top: 1px dashed ${color.border};
+      margin-top: 146px;
+      padding-top: 20px;
+    }
   }
 `;
 
@@ -19,6 +25,10 @@ const DividerWrap = styled.div`
   position: relative;
   width: 5%;
   margin: 0 8px;
+
+  @media print {
+    display: none;
+  }
 `;
 
 const Divider = styled.div`
@@ -46,6 +56,10 @@ const Divider = styled.div`
 const ContentWrap = styled.dl`
   width: 80%;
   ${fontSet.item};
+
+  @media print {
+    width: 100%;
+  }
 `;
 
 const SubItemWrap = styled.ul`
@@ -69,6 +83,7 @@ const Item = styled.dt`
     height: 6px;
     border-radius: 50%;
     background-color: ${color.desc};
+    -webkit-print-color-adjust: exact;
   }
 `;
 
@@ -93,6 +108,22 @@ const Title = styled.h3`
   margin-bottom: 8px;
   ${fontSet.outline};
   color: ${color.black};
+  background-color: transparent;
+  -webkit-print-color-adjust: exact;
+  @media print {
+    padding: 4px;
+    background-color: ${color.green};
+    display: flex;
+    justify-content: space-between;
+    font-size: '14px';
+  }
+`;
+
+const PrintDuration = styled.div`
+  display: none;
+  @media print {
+    display: inline-block;
+  }
 `;
 
 const WorksItem = ({ duration, title, desc, items }) => (
@@ -102,7 +133,12 @@ const WorksItem = ({ duration, title, desc, items }) => (
       <Divider />
     </DividerWrap>
     <ContentWrap>
-      <Title>{title}</Title>
+      <Title>
+        {title}
+        <PrintDuration>
+          {duration.from} - {duration.to}
+        </PrintDuration>
+      </Title>
       <Desc>{desc}</Desc>
       {items.map(({ title: itemTitle, subItems = [] }, idx) => (
         <SubItemWrap key={idx}>

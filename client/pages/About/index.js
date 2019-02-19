@@ -14,6 +14,9 @@ const Wrap = styled.div`
   padding-top: 32px;
   padding-bottom: 40px;
   background-color: ${color.bg};
+  @media print {
+    padding-top: 16px;
+  }
 `;
 
 const Body = styled.div`
@@ -31,6 +34,13 @@ const Body = styled.div`
     flex-direction: column;
     align-items: center;
     max-height: none;
+  }
+
+  @media print {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    padding: 0;
   }
 `;
 
