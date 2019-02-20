@@ -4,6 +4,7 @@
   "description": "JackChan resume",
   "scripts": {
     "dev": "yarn build:dll && NODE_ENV=development webpack-dev-server --inline --config webpack.dev.config.js",
+    "deploy": "yarn build:prod && ./script/gh-deploy.sh",
     "build:prod": "yarn build:dll && NODE_ENV=production webpack -p --progress --config webpack.prod.config.js",
     "build:dll": "[ ! -f public/dll.json ] && webpack --config webpack.dll.config.js || exit 0",
     "format": "prettier-eslint --write"
