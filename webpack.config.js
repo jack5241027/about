@@ -10,7 +10,7 @@ module.exports = {
     app: './client/index.js',
   },
   output: {
-    publicPath: '/',
+    publicPath: './',
     path: path.join(__dirname, 'public'),
     filename: '[name].[hash].js',
   },
