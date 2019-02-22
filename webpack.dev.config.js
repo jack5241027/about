@@ -10,8 +10,11 @@ module.exports = smp.wrap(
     mode: 'development',
     devtool: 'cheap-module-source-map',
     watch: true,
+    output: {
+      ...basic.output,
+      publicPath: '/',
+    },
     devServer: {
-      contentBase: './public',
       historyApiFallback: true,
       disableHostCheck: true,
       hot: true,

@@ -18,7 +18,7 @@ export default [
       {
         title: 'Develop and maintain ACL permission system',
         subItems: [
-          'Integrate Graphql with backend to manage Group and User permission.',
+          'Integrate Graphql with backend to manage group and user permission.',
           'Build common Graphql initial function to improve code reusability.',
           'Use D3 and SVG to draw a hierarchy graph.',
         ],
@@ -32,22 +32,22 @@ export default [
           'Build new feature into an internal admin, including frontend and backend development.',
         subItems: [
           'Integrate RTMP and PubNub to create stream management system.',
-          'Several cron jobs, e.g., daily report and users income.',
+          'Several cronjobs, e.g., daily report and users income.',
           'Slack-bot integration to offer several commands in slack channel for common operations.',
-          'Integrate user account with PayPal Email verification flow.',
+          'Integrate user account with PayPal email verification flow.',
         ],
       },
       {
         title:
           'Build event-page system let the style and action could be produce by setting config.',
         subItems: [
-          'Design several UI component make code more reusable and readable.',
+          'Design several UI components make code more reusable and readable.',
         ],
       },
       {
         title: 'Build event pages and prepare backend data.',
         subItems: [
-          'Make several apis and admin interface let operator monitor event status in a on site event.',
+          'Make several APIs to handle and monitor event status in an on-site event.',
         ],
       },
     ],
@@ -64,13 +64,12 @@ export default [
       {
         title: 'New EZTABLE website maintain and feature develope.',
         subItems: [
-          'Assist building data flow between React and Firebase. Decrease server api loading.',
-          'Develop point query feature. Build common language switch component for code reuse.',
+          'Assist building data flow with Firebase. Decrease server api loading.',
+          'Develop point query feature. Build common components for code reuse.',
         ],
       },
       {
-        title:
-          "Survey and implement the mainstream social platform's share APIs.",
+        title: "Survey and implement some social platform's share APIs.",
       },
       {
         title:
