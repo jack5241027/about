@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import color from '@/share/style';
+import Calculator from '@/components/Calculator';
 
 const Wrap = styled.div`
   display: flex;
+  height: 100vh;
+  width: 100vw;
   justify-content: center;
-  padding-top: 32px;
-  padding-bottom: 40px;
   background-color: ${color.bg};
-  @media print {
-    padding-top: 16px;
-  }
 `;
 
-const Calculator = () => <Wrap>Calculator</Wrap>;
+const CalculatorPage = () => (
+  <Wrap>
+    <Calculator />
+  </Wrap>
+);
 
-export default Calculator;
+export default CalculatorPage;
