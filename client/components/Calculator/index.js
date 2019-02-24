@@ -84,10 +84,12 @@ class Calculator extends React.Component {
     this.area = React.createRef();
     this.state = {
       inputs: [],
+      tempInput: [],
       lastIpt: '',
       result: 0,
       isAnswered: false,
       buttonSize: 0,
+      stupidMode: true,
     };
 
     this.handlerMap = {
@@ -126,10 +128,12 @@ class Calculator extends React.Component {
   };
 
   handleEqualClick = () => {
-    const { inputs } = this.state;
+    const { inputs, tempInput, stupidMode } = this.state;
+    const tempResult = calculator(tempInput) || 0;
     const result = calculator(inputs) || 0;
+
     this.setState({
-      result,
+      result: stupidMode ? tempResult : result,
       lastIpt: result,
       isAnswered: true,
       inputs: [result],
@@ -140,13 +144,14 @@ class Calculator extends React.Component {
     this.setState({
       result: 0,
       inputs: [],
+      tempInput: [],
       lastIpt: null,
       isAnswered: false,
     });
   };
 
   handleNumClick = val => () => {
-    const { inputs, isAnswered, lastIpt } = this.state;
+    const { inputs, isAnswered, lastIpt, tempInput } = this.state;
     const lastIdx = inputs.length - 1;
     const state = {};
 
@@ -161,10 +166,12 @@ class Calculator extends React.Component {
 
     if (isNum(lastIpt) || lastIpt === '.') {
       const nextVal = parseFloat(`${lastIpt}${val}`, 10);
+      state.tempInput = [...tempInput.slice(0, lastIdx), nextVal];
       state.inputs = [...inputs.slice(0, lastIdx), nextVal];
       state.lastIpt = nextVal;
       state.result = nextVal;
     } else {
+      state.tempInput = tempInput.concat(val);
       state.inputs = inputs.concat(val);
       state.lastIpt = val;
       state.result = val;
@@ -174,7 +181,11 @@ class Calculator extends React.Component {
   };
 
   handleOpClick = val => () => {
-    const { inputs, lastIpt } = this.state;
+    const { inputs, lastIpt, tempInput, stupidMode } = this.state;
+    const tempResult = isNum(calculator(tempInput))
+      ? calculator(tempInput)
+      : val;
+    const result = isNum(calculator(inputs)) ? calculator(inputs) : val;
 
     if (!isNum(lastIpt)) {
       this.setState({
@@ -187,15 +198,17 @@ class Calculator extends React.Component {
 
     this.setState({
       lastIpt: val,
-      result: calculator(inputs) || val,
+      result: stupidMode ? tempResult : result,
+      tempInput:
+        tempInput.length === 3 ? [tempResult, val] : tempInput.concat(val),
       inputs: inputs.concat(val),
       isAnswered: false,
     });
   };
 
   render() {
-    const { buttonSize, result, inputs } = this.state;
-    console.log(inputs);
+    const { buttonSize, result, inputs, tempInput } = this.state;
+    console.log(tempInput);
     return (
       <CalculatorWrap ref={this.area}>
         <ResultView>{result}</ResultView>
