@@ -15,7 +15,7 @@ const WorksItemWrap = styled.div`
 
     @media print {
       border-top: 1px dashed ${color.border};
-      margin-top: 146px;
+      margin-top: 182px;
       padding-top: 20px;
     }
   }

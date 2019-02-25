@@ -64,6 +64,9 @@ const Col = styled.div`
     &:nth-child(1) {
       border: none;
     }
+    &:nth-child(2) {
+      width: 100%;
+    }
   }
 `;
 

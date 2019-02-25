@@ -64,8 +64,7 @@ export default [
       {
         title: 'New EZTABLE website maintain and feature develope.',
         subItems: [
-          'Assist building data flow with Firebase. Decrease server api loading.',
-          'Develop point query feature. Build common components for code reuse.',
+          'Develop point query feature, website announcement and build some common components.',
         ],
       },
       {
