@@ -30,7 +30,7 @@ const Profile = () => (
       Enjoy coding and learning new web technologies and love to work in Agile
       development environments.
     </ProfileDesc>
-    <Outline>► Focus on React.js(+ES6).</Outline>
+    <Outline>► Focus on React.js(ES2015+).</Outline>
     <Outline>► Experienced in Responsive Web Design and CRM system.</Outline>
   </Section>
 );

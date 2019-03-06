@@ -11,10 +11,10 @@ const Section = styled(RawSection)`
 
 const Skills = () => (
   <Section title="KEY SKILLS">
-    <SkillItem title="JavaScript (ES6)" />
+    <SkillItem title="JavaScript (ES2015+)" />
     <SkillItem title="HTML5" />
     <SkillItem title="CSS3 + Sass" />
-    <SkillItem title="Styled components" />
+    <SkillItem title="styled-components" />
     <SkillItem title="Webpack" />
     <SkillItem title="GraphQL" />
     <SkillItem title="ReactJS + Alt / Redux" />
