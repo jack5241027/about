@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { isNum } from '@/share/utils';
-import calculator from './helper';
+import calculator, {
+  filterUnPairLeftBracket,
+  hasUnPairBracket,
+} from './helper';
 
 const MARGIN = 4;
 const BORDER = 1;
@@ -89,10 +92,12 @@ class Calculator extends React.Component {
       result: 0,
       isAnswered: false,
       buttonSize: 0,
-      stupidMode: true,
+      stupidMode: false,
     };
 
     this.handlerMap = {
+      '(': this.handleLeftBrackets,
+      ')': this.handleRightBrackets,
       '.': this.handleDotClick,
       '=': this.handleEqualClick,
       AC: this.handleClear,
@@ -113,6 +118,41 @@ class Calculator extends React.Component {
     this.setState({ buttonSize: getButtonSize(parseInt(width, 10)) });
   };
 
+  handleLeftBrackets = () => {
+    const { inputs, lastIpt } = this.state;
+
+    if (isNum(lastIpt) || lastIpt === '(' || lastIpt === ')') {
+      return;
+    }
+
+    this.setState({
+      lastIpt: '(',
+      inputs: inputs.concat('('),
+    });
+  };
+
+  handleRightBrackets = () => {
+    const { inputs, lastIpt } = this.state;
+    const nextIpt = inputs.concat(')');
+
+    if (
+      !isNum(lastIpt) ||
+      lastIpt === '(' ||
+      lastIpt === ')' ||
+      hasUnPairBracket(nextIpt)
+    ) {
+      return;
+    }
+
+    const result = calculator(filterUnPairLeftBracket(nextIpt));
+
+    this.setState({
+      lastIpt: ')',
+      inputs: nextIpt,
+      result,
+    });
+  };
+
   handleDotClick = () => {
     const { inputs } = this.state;
     const lastIpt = this.state.lastIpt || 0;
@@ -129,8 +169,8 @@ class Calculator extends React.Component {
 
   handleEqualClick = () => {
     const { inputs, tempInput, stupidMode } = this.state;
-    const tempResult = calculator(tempInput) || 0;
-    const result = calculator(inputs) || 0;
+    const tempResult = calculator(filterUnPairLeftBracket(tempInput)) || 0;
+    const result = calculator(filterUnPairLeftBracket(inputs)) || 0;
 
     this.setState({
       result: stupidMode ? tempResult : result,
@@ -158,6 +198,7 @@ class Calculator extends React.Component {
     if (isAnswered) {
       this.setState({
         result: val,
+        lastIpt: val,
         inputs: [val],
         isAnswered: false,
       });
@@ -180,35 +221,38 @@ class Calculator extends React.Component {
     this.setState(state);
   };
 
-  handleOpClick = val => () => {
+  handleOpClick = op => () => {
     const { inputs, lastIpt, tempInput, stupidMode } = this.state;
-    const tempResult = isNum(calculator(tempInput))
-      ? calculator(tempInput)
-      : val;
-    const result = isNum(calculator(inputs)) ? calculator(inputs) : val;
+    const stupidResult = calculator(filterUnPairLeftBracket(tempInput));
+    const smartResult = calculator(filterUnPairLeftBracket(inputs));
+    const result = stupidMode ? stupidResult : smartResult;
 
-    if (!isNum(lastIpt)) {
+    if (lastIpt === '(') {
+      return;
+    }
+
+    if (!isNum(lastIpt) && lastIpt !== '(' && lastIpt !== ')') {
       this.setState({
-        lastIpt: val,
-        inputs: [...inputs.slice(0, inputs.length - 1), val],
+        lastIpt: op,
+        inputs: [...inputs.slice(0, inputs.length - 1), op],
         isAnswered: false,
       });
       return;
     }
 
     this.setState({
-      lastIpt: val,
-      result: stupidMode ? tempResult : result,
+      lastIpt: op,
+      result: isNum(result) ? result : op,
       tempInput:
-        tempInput.length === 3 ? [tempResult, val] : tempInput.concat(val),
-      inputs: inputs.concat(val),
+        tempInput.length === 3 ? [stupidResult, op] : tempInput.concat(op),
+      inputs: inputs.concat(op),
       isAnswered: false,
     });
   };
 
   render() {
     const { buttonSize, result, inputs, tempInput } = this.state;
-    console.log(tempInput);
+
     return (
       <CalculatorWrap ref={this.area}>
         <ResultView>{result}</ResultView>
@@ -218,9 +262,7 @@ class Calculator extends React.Component {
               if (isNum(symbol)) {
                 return (
                   <Num
-                    onClick={
-                      this.handlerMap[symbol] || this.handleNumClick(symbol)
-                    }
+                    onClick={this.handleNumClick(symbol)}
                     size={buttonSize}
                     key={symbol}
                     val={symbol}

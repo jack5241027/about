@@ -58,7 +58,7 @@ const inFixToPostFix = (infixList = []) => {
       stack.pop();
     } else if (isOp(char)) {
       const priority = getPriority(char);
-      while (priority < getPriority(getStackTop(stack))) {
+      while (priority <= getPriority(getStackTop(stack))) {
         post.push(stack.pop());
       }
       stack.push(char);
@@ -120,5 +120,56 @@ const calPostfix = (postFix) => {
 };
 
 const format = ipt => ipt.map(i => `${i}`.replace('X', '*'));
+
+export const filterUnPairLeftBracket = (inputs) => {
+  const len = inputs.length;
+  const result = [];
+  const stack = [];
+
+  for (let i = 0; i < len; i++) {
+    if (inputs[i] === ')') {
+      const { val, index } = stack[stack.length - 1];
+      if (val === '(' && index < i) {
+        stack.pop();
+      }
+    }
+
+    if (inputs[i] === '(') {
+      stack.push({
+        val: '(',
+        index: i,
+      });
+    }
+  }
+
+  for (let i = 0; i < len; i++) {
+    result[i] = inputs[i];
+  }
+
+  const stackLen = stack.length;
+
+  if (stackLen === 0) {
+    return result;
+  }
+
+  for (let i = stackLen - 1; i >= 0; i--) {
+    result.splice(stack[i].index, 1);
+  }
+  return result;
+};
+
+export const hasUnPairBracket = (inputs) => {
+  let time = 0;
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i] === '(') {
+      time += 1;
+    }
+    if (inputs[i] === ')') {
+      time -= 1;
+    }
+  }
+
+  return time < 0;
+};
 
 export default inputs => calPostfix(inFixToPostFix(format(inputs)));
