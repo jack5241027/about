@@ -18,6 +18,14 @@ const layoutStructure = [
   [0, '.', '=', '+'],
 ];
 
+const BUTTON_COLOR = '#DDC8C4';
+const BUTTON_BG = '#6B4D57';
+
+const RESULT_COLOR = '#DDC8C4';
+const RESULT_BG = '#6B4D57';
+
+const CALCULATOR_MAIN_BG = '#738290';
+
 const BasicButton = styled.div`
   position: relative;
   width: ${props => props.size}px;
@@ -27,6 +35,7 @@ const BasicButton = styled.div`
   height: 0;
   text-align: center;
   border: 1px solid black;
+  border-radius: 4px;
 
   &:before {
     content: '${props => props.val}';
@@ -34,6 +43,17 @@ const BasicButton = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, 50%);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: ${BUTTON_BG};
+    color: ${BUTTON_COLOR};
+  }
+
+  &:active {
+    transform: translateY(2px);
+    filter: saturate(150%);
   }
 `;
 
@@ -47,7 +67,9 @@ const ResultView = styled.div`
   padding-right: 8px;
   text-align: right;
   font-size: 32px;
-  background-color: #ccc;
+  background-color: ${RESULT_BG};
+  border-radius: 8px;
+  color: ${RESULT_COLOR};
   vertical-align: middle;
 
   &:before {
@@ -75,7 +97,8 @@ const CalculatorWrap = styled.div`
   width: 480px;
   height: 560px;
   padding: 8px;
-  background-color: #fff;
+  background-color: ${CALCULATOR_MAIN_BG};
+  border-radius: 4px;
 `;
 
 const getButtonSize = width =>
