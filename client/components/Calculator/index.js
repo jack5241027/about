@@ -71,6 +71,8 @@ const ResultView = styled.div`
   border-radius: 8px;
   color: ${RESULT_COLOR};
   vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
 
   &:before {
     content: '';
@@ -78,6 +80,10 @@ const ResultView = styled.div`
     width: 0;
     height: 100%;
     vertical-align: middle;
+  }
+
+  @media screen and (max-width: 768px) {
+    line-height: 0;
   }
 `;
 
