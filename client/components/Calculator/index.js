@@ -135,12 +135,29 @@ class Calculator extends React.Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize, false);
+    window.onload = () => {
+      if (/iP(hone|ad)/.test(window.navigator.userAgent)) {
+        document.body.addEventListener(
+          'touchstart',
+          this.handleButtonClickEffect,
+          false
+        );
+      }
+    };
     this.handleResize();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize, false);
+    document.body.removeEventListener(
+      'touchstart',
+      this.handleButtonClickEffect,
+      false
+    );
   }
+
+  // Hack for mobile click style
+  handleButtonClickEffect = () => {};
 
   handleResize = () => {
     const { width } = window.getComputedStyle(this.area.current);
