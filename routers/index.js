@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader/root';
 import history from '~/history';
 import About from '@/pages/About';
 import Calculator from '@/pages/Calculator';
+import SpinButton from '@/pages/SpinButton';
 import App from '@/App';
 
 const route = () => (
@@ -11,6 +12,7 @@ const route = () => (
     <App>
       <Switch>
         <Route path="/about/p-calculator" component={Calculator} />
+        <Route path="/about/p-spin-button" component={SpinButton} />
         <Route path="/" component={About} />
       </Switch>
     </App>
