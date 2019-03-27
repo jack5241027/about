@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from '../../share/utils';
 
 const Wrap = styled.div`
   position: absolute;
@@ -55,6 +55,22 @@ const CtrlButton = styled.button`
   }
 `;
 
+const transDeltaToAngle = (diffX, diffY) => {
+  let angle = Math.floor(
+    (Math.atan(Math.abs(diffY) / Math.abs(diffX)) * 180) / Math.PI
+  );
+  if (diffY <= 0 && diffX >= 0) {
+    angle = 90 - angle;
+  } else if (diffY > 0 && diffX >= 0) {
+    angle += 90;
+  } else if (diffY >= 0 && diffX <= 0) {
+    angle = 270 - angle;
+  } else {
+    angle = 270 + angle;
+  }
+  return angle;
+};
+
 class SpinButton extends React.Component {
   constructor(props) {
     super(props);
@@ -73,6 +89,11 @@ class SpinButton extends React.Component {
       false
     );
     this.circle.current.addEventListener(
+      'touchmove',
+      this.handleMouseMove,
+      false
+    );
+    this.circle.current.addEventListener(
       'mousedown',
       this.handleMouseDown,
       false
@@ -82,24 +103,22 @@ class SpinButton extends React.Component {
 
   handleMouseMove = (e) => {
     const { down } = this.state;
+    if (isMobile()) {
+      const { x, y } = this.circle.current.getBoundingClientRect();
+      const clientX = e.touches[0].clientX;
+      const clientY = e.touches[0].clientY;
+      const [centerX, centerY] = [x + 75, y + 75];
+      const diffX = clientX - centerX;
+      const diffY = clientY - centerY;
+
+      this.setState({ angle: transDeltaToAngle(diffX, diffY) });
+    }
     if (down) {
       const [centerX, centerY] = [75, 75];
       const diffX = e.offsetX - centerX;
       const diffY = e.offsetY - centerY;
-      let angle = Math.floor(
-        (Math.atan(Math.abs(diffY) / Math.abs(diffX)) * 180) / Math.PI
-      );
-      if (diffY <= 0 && diffX >= 0) {
-        angle = 90 - angle;
-      } else if (diffY > 0 && diffX >= 0) {
-        angle += 90;
-      } else if (diffY >= 0 && diffX <= 0) {
-        angle = 270 - angle;
-      } else {
-        angle = 270 + angle;
-      }
 
-      this.setState({ angle });
+      this.setState({ angle: transDeltaToAngle(diffX, diffY) });
     }
   };
 
@@ -124,7 +143,5 @@ class SpinButton extends React.Component {
     );
   }
 }
-
-SpinButton.propTypes = {};
 
 export default SpinButton;
