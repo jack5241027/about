@@ -1,25 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": "@17media/eslint-config-17media",
-  "plugins": ["no-mixed-operators"],
-  "rules": {
-    "react/no-deprecated": "warn",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "no-mixed-operators": "off",
-    "no-mixed-operators/no-mixed-operators": [
-      "error",
-      {
-        "groups": [
-          ["+", "-", "*", "/", "%", "**"],
-          ["&", "|", "^", "~", "<<", ">>", ">>>"],
-          ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
-          ["&&", "||"],
-          ["in", "instanceof"]
-        ],
-        "allowSamePrecedence": false
-      }
-    ]
-  },
+  "extends": "@jack5241027/eslint-config",
   "env": {
     "browser": true,
     "node": true,
