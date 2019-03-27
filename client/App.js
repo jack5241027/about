@@ -6,11 +6,29 @@ const GlobalStyle = createGlobalStyle`
   ${normalize}
 `;
 
-const App = ({ children }) => (
-  <React.Fragment>
-    {children}
-    <GlobalStyle />
-  </React.Fragment>
-);
+class App extends React.Component {
+  componentDidMount() {
+    this.setVh();
+    window.addEventListener('resize', this.setVh);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setVh);
+  }
+
+  setVh = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.props.children}
+        <GlobalStyle />
+      </React.Fragment>
+    );
+  }
+}
 
 export default App;

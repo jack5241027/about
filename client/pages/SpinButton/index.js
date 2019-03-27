@@ -6,6 +6,7 @@ import SpinButton from '@/components/SpinButton';
 const Wrap = styled.div`
   position: relative;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   background-color: ${color.bg};
 `;
