@@ -17,6 +17,7 @@ class App extends React.Component {
   }
 
   setVh = () => {
+    // Ref: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
