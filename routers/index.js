@@ -5,6 +5,7 @@ import history from '~/history';
 import About from '@/pages/About';
 import Calculator from '@/pages/Calculator';
 import SpinButton from '@/pages/SpinButton';
+import Validator from '@/pages/Validator';
 import App from '@/App';
 
 const route = () => (
@@ -13,6 +14,7 @@ const route = () => (
       <Switch>
         <Route path="/about/p-calculator" component={Calculator} />
         <Route path="/about/p-spin-button" component={SpinButton} />
+        <Route path="/about/p-validator" component={Validator} />
         <Route path="/" component={About} />
       </Switch>
     </App>
