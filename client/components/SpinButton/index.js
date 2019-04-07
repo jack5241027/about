@@ -3,10 +3,9 @@ import styled from 'styled-components';
 import { isMobile } from '../../share/utils';
 
 const Wrap = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  display: inline-block;
+  margin: 0 16px;
 `;
 
 const Circle = styled.div`
